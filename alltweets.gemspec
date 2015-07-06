@@ -5,7 +5,7 @@ require 'alltweets/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "alltweets"
-  spec.version       = Alltweets::VERSION
+  spec.version       = AllTweets::VERSION
   spec.authors       = ["OTSUKA Tatsuya"]
   spec.email         = ["tatzyr@gmail.com"]
 

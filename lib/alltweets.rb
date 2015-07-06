@@ -1,5 +1,5 @@
 require "alltweets/version"
 
-module Alltweets
+module AllTweets
   # Your code goes here...
 end
