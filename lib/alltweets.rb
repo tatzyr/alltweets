@@ -1,5 +1,5 @@
 require "alltweets/version"
-
-module AllTweets
-  # Your code goes here...
-end
+require "alltweets/cli"
+require "alltweets/collector"
+require "alltweets/get_access_token"
+require "alltweets/settings"

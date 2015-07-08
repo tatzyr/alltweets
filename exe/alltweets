@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require "alltweets"
+
+AllTweets::CLI.start(ARGV)
