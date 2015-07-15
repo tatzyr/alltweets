@@ -1,28 +1,30 @@
 # AllTweets
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alltweets`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Downloads someone's all tweets.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'alltweets'
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install alltweets
+$ gem install alltweets
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Commands
+
+* `alltweets <screen name>`: Download <screen name>'s all tweets.
+
+### Options
+
+* `-r`, `--retweets`: Include retweets to output
+* `-j`, `--json`: Download as JSON (default: YAML)
+* `-h`, `--help`: Show help message
+
+### Example
+
+* `alltweets tatzyr`: Download @tatzyr's all tweets.
+* `alltweets -r tatzyr`: Download @tatzyr's all tweets including retweets.
+* `alltweets -j tatzyr`: Download @tatzyr's all tweets as JSON.
 
 ## Development
 
@@ -32,4 +34,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/alltweets.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Tatzyr/alltweets.
