@@ -5,11 +5,10 @@ module AllTweets
   class CLI
     def initialize
       @settings = Settings.new
-      unless @settings.exist?
-        access_token, access_token_secret = GetAccessToken.get_access_token(@settings.consumer_key, @settings.consumer_secret)
-        puts "Saving access token and access token secret to #{@settings.filename}"
-        @settings.add_access_tokens(access_token, access_token_secret)
-      end
+    end
+
+    def get_access_token
+      @settings.get_access_token
     end
 
     def collect(screen_names, include_retweets:)
@@ -29,6 +28,8 @@ module AllTweets
 
     def self.start(argv)
       cli = CLI.new
+      cli.get_access_token
+
       opts = Trollop::options do
         opt :retweets, "Include retweets to output"
         opt :json, "Use JSON"

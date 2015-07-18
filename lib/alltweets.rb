@@ -1,5 +1,4 @@
 require "alltweets/version"
 require "alltweets/cli"
 require "alltweets/collector"
-require "alltweets/get_access_token"
 require "alltweets/settings"

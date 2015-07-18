@@ -1,3 +1,6 @@
+require "colorize"
+require "launchy"
+require "oauth"
 require "yaml"
 
 module AllTweets
@@ -28,7 +31,24 @@ module AllTweets
       FileTest.exist?(@filename)
     end
 
-    attr_reader :filename
+    def get_access_token
+      unless exist?
+        consumer = OAuth::Consumer.new(consumer_key, consumer_secret, site: "https://api.twitter.com")
+        request_token = consumer.get_request_token
+
+        puts "1) Open: #{request_token.authorize_url}".colorize(:cyan)
+        Launchy.open(request_token.authorize_url)
+
+        print "2) Enter the PIN: ".colorize(:cyan)
+        pin = $stdin.gets.strip
+
+        access_token = request_token.get_access_token(oauth_verifier: pin)
+        access_token, access_token_secret = access_token.token, access_token.secret
+
+        puts "Saving access token and access token secret to #{@filename}"
+        add_access_tokens(access_token, access_token_secret)
+      end
+    end
 
     private
     def load_file
