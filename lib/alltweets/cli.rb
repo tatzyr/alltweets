@@ -7,10 +7,6 @@ module AllTweets
       @settings = Settings.new
     end
 
-    def get_access_token
-      @settings.get_access_token
-    end
-
     def collect(screen_name, include_retweets:)
       collector = Collector.new(
         consumer_key: @settings.consumer_key,
@@ -22,17 +18,16 @@ module AllTweets
       collector.get_all_tweets(screen_name, include_retweets: include_retweets)
     end
 
-    def self.start(argv)
-      cli = CLI.new
-      cli.get_access_token
+    def run
+      @settings.get_access_token
 
       opts = Trollop::options do
         opt :retweets, "Include retweets to output"
         opt :json, "Use JSON"
       end
 
-      screen_name = argv.first
-      result = cli.collect(screen_name, include_retweets: opts[:retweets])
+      screen_name = ARGV.first
+      result = collect(screen_name, include_retweets: opts[:retweets])
 
       result.map!(&:to_h)
       ext = opts[:json] ? ".json" : ".yml"
