@@ -1,3 +1,4 @@
+require "colorize"
 require "oj"
 require "trollop"
 
@@ -6,7 +7,7 @@ module AllTweets
     def initialize
       @screen_name, @opts = parse_args
       @settings = Settings.new
-      @settings.get_access_token
+      update_access_token
       @collector = Collector.new(
         consumer_key: @settings.consumer_key,
         consumer_secret: @settings.consumer_secret,
@@ -39,6 +40,28 @@ module AllTweets
       end
       screen_name = ARGV.first
       [screen_name, opts]
+    end
+
+    def update_access_token
+      unless @settings.exist?
+        consumer = OAuth::Consumer.new(
+          @settings.consumer_key,
+          @settings.consumer_secret,
+          site: "https://api.twitter.com"
+        )
+        request_token = consumer.get_request_token
+
+        puts "1) Open: #{request_token.authorize_url}".colorize(:cyan)
+        Launchy.open(request_token.authorize_url)
+
+        print "2) Enter the PIN: ".colorize(:cyan)
+        pin = $stdin.gets.strip
+
+        access_token = request_token.get_access_token(oauth_verifier: pin)
+
+        puts "Saving access token and access token secret to #{@settings.filename}"
+        @settings.add_access_tokens(access_token.token, access_token.secret)
+      end
     end
 
     def filename

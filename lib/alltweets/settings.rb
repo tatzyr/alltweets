@@ -1,4 +1,3 @@
-require "colorize"
 require "launchy"
 require "oauth"
 require "yaml"
@@ -15,11 +14,7 @@ module AllTweets
       @settings = load_file
     end
 
-    def add_access_tokens(access_token, access_token_secret)
-      @settings[:access_token] = access_token
-      @settings[:access_token_secret] = access_token_secret
-      dump_file
-    end
+    attr_reader :filename
 
     %i[consumer_key consumer_secret access_token access_token_secret].each do |name|
       define_method(name) do
@@ -27,27 +22,14 @@ module AllTweets
       end
     end
 
-    def exist?
-      FileTest.exist?(@filename)
+    def add_access_tokens(access_token, access_token_secret)
+      @settings[:access_token] = access_token
+      @settings[:access_token_secret] = access_token_secret
+      dump_file
     end
 
-    def get_access_token
-      unless exist?
-        consumer = OAuth::Consumer.new(consumer_key, consumer_secret, site: "https://api.twitter.com")
-        request_token = consumer.get_request_token
-
-        puts "1) Open: #{request_token.authorize_url}".colorize(:cyan)
-        Launchy.open(request_token.authorize_url)
-
-        print "2) Enter the PIN: ".colorize(:cyan)
-        pin = $stdin.gets.strip
-
-        access_token = request_token.get_access_token(oauth_verifier: pin)
-        access_token, access_token_secret = access_token.token, access_token.secret
-
-        puts "Saving access token and access token secret to #{@filename}"
-        add_access_tokens(access_token, access_token_secret)
-      end
+    def exist?
+      FileTest.exist?(@filename)
     end
 
     private
