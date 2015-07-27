@@ -30,6 +30,8 @@ module AllTweets
       open(filename, "w") do |f|
         f.puts dump_data
       end
+    rescue
+      puts "Error: #{$!}".colorize(:red)
     end
 
     private
