@@ -41,6 +41,12 @@ module AllTweets
         opt :json, "Use JSON"
       end
       screen_name = ARGV.first
+
+      if screen_name.nil?
+        warn "usage: alltweets <screen name>"
+        exit 1
+      end
+
       [screen_name, opts]
     end
 
