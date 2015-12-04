@@ -24,7 +24,7 @@ $ gem install alltweets
 
 * `alltweets tatzyr`: Download @tatzyr's all tweets.
 * `alltweets -r tatzyr`: Download @tatzyr's all tweets including retweets.
-* `alltweets -j tatzyr`: Download @tatzyr's all tweets as JSON.
+* `alltweets -j tatzyr`: Download @tatzyr's all tweets as JSON (default: YAML).
 
 ## Development
 

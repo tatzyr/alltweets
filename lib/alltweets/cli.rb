@@ -38,7 +38,7 @@ module AllTweets
     def parse_args
       opts = Trollop::options do
         opt :retweets, "Include retweets"
-        opt :json, "Use JSON (Default: YAML)"
+        opt :json, "Use JSON (default: YAML)"
       end
       screen_name = ARGV.first
 
