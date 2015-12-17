@@ -5,8 +5,8 @@ require "yaml"
 module AllTweets
   class Settings
     INITIAL_SETTINGS = {
-      consumer_key: "dJHSlSiV3iuchF4UdXKxw",
-      consumer_secret: "y34Ftm34OJNoNO3wXlLujnq5aULaK5eRzDz1DnbjGQ",
+      consumer_key: "GyRoi6Jx4T4olW1Rfwgfaa5kv",
+      consumer_secret: "OHx2XugBhtg7kuI4yaPANXh3rplREN0Si8CoLzVWYpkeDyH3NJ",
     }
 
     def initialize(filename = File.expand_path('~/.alltweets'))
