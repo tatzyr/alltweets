@@ -21,10 +21,10 @@ module AllTweets
       puts "Saving #{@screen_name}'s all tweets to #{@filename}"
       result = @collector.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
-      if @opts[:json]
-        dump_data = Oj.dump(result, mode: :compat)
-      else
+      if @opts[:yaml]
         dump_data = YAML.dump(result)
+      else
+        dump_data = Oj.dump(result, mode: :compat)
       end
 
       open(filename, "w") do |f|
@@ -38,7 +38,7 @@ module AllTweets
     def parse_args
       opts = Trollop::options do
         opt :retweets, "Include retweets"
-        opt :json, "Use JSON (default: YAML)"
+        opt :yaml, "Use YAML (default: JSON)"
       end
       screen_name = ARGV.first
 
@@ -73,7 +73,7 @@ module AllTweets
     end
 
     def filename
-      ext = @opts[:json] ? ".json" : ".yml"
+      ext = @opts[:yaml] ? ".yml" : ".json"
       "alltweets_#{@screen_name}#{ext}"
     end
   end

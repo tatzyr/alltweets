@@ -17,14 +17,14 @@ $ gem install alltweets
 ### Options
 
 * `-r`, `--retweets`: Include retweets to output
-* `-j`, `--json`: Download as JSON (default: YAML)
+* `-y`, `--yaml`: Download as YAML (default: JSON)
 * `-h`, `--help`: Show help message
 
 ### Example
 
 * `alltweets tatzyr`: Download @tatzyr's all tweets.
 * `alltweets -r tatzyr`: Download @tatzyr's all tweets including retweets.
-* `alltweets -j tatzyr`: Download @tatzyr's all tweets as JSON (default: YAML).
+* `alltweets -y tatzyr`: Download @tatzyr's all tweets as YAML (default: JSON).
 
 ## Development
 
