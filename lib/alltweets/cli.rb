@@ -18,7 +18,7 @@ module AllTweets
     end
 
     def run
-      puts "Saving #{@screen_name}'s all tweets to #{@filename}"
+      warn "Saving #{@screen_name}'s all tweets to #{@filename}"
       result = @collector.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
       if @opts[:yaml]
@@ -31,7 +31,7 @@ module AllTweets
         f.puts dump_data
       end
     rescue
-      puts "Error: #{$!}".colorize(:red)
+      warn "Error: #{$!}".colorize(:red)
     end
 
     private
@@ -67,7 +67,7 @@ module AllTweets
 
         access_token = request_token.get_access_token(oauth_verifier: pin)
 
-        puts "Saving access token and access token secret to #{@settings.filename}"
+        warn "Saving access token and access token secret to #{@settings.filename}"
         @settings.add_access_tokens(access_token.token, access_token.secret)
       end
     end
