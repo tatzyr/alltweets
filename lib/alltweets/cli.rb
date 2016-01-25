@@ -59,10 +59,10 @@ module AllTweets
         )
         request_token = consumer.get_request_token
 
-        puts "1) Open: #{request_token.authorize_url}".colorize(:cyan)
+        warn "1) Open: #{request_token.authorize_url}".colorize(:cyan)
         Launchy.open(request_token.authorize_url)
 
-        print "2) Enter the PIN: ".colorize(:cyan)
+        $stderr.print "2) Enter the PIN: ".colorize(:cyan)
         pin = $stdin.gets.strip
 
         access_token = request_token.get_access_token(oauth_verifier: pin)
