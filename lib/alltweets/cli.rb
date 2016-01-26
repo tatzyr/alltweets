@@ -32,6 +32,7 @@ module AllTweets
       end
     rescue
       warn "Error: #{$!}".colorize(:red)
+      exit 1
     end
 
     private
