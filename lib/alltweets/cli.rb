@@ -41,12 +41,13 @@ module AllTweets
         opt :retweets, "Include retweets"
         opt :yaml, "Use YAML instead of JSON"
       end
-      screen_name = ARGV.first
 
-      if screen_name.nil?
+      unless ARGV.size == 1
         warn "usage: alltweets <screen name>"
         exit 1
       end
+
+      screen_name = ARGV.first
 
       [screen_name, opts]
     end
