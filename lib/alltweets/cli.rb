@@ -14,11 +14,10 @@ module AllTweets
         access_token: @settings.access_token,
         access_token_secret: @settings.access_token_secret
       )
-      @filename = filename
     end
 
     def run
-      warn "Saving #{@screen_name}'s all tweets to #{@filename}"
+      warn "Downloading #{@screen_name}'s all tweets"
       result = @collector.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
       if @opts[:yaml]
@@ -27,9 +26,7 @@ module AllTweets
         dump_data = Oj.dump(result, mode: :compat)
       end
 
-      open(filename, "w") do |f|
-        f.puts dump_data
-      end
+      puts dump_data
     rescue
       warn "Error: #{$!}".colorize(:red)
       exit 1
@@ -72,11 +69,6 @@ module AllTweets
         warn "Saving access token and access token secret to #{@settings.filename}"
         @settings.add_access_tokens(access_token.token, access_token.secret)
       end
-    end
-
-    def filename
-      ext = @opts[:yaml] ? ".yml" : ".json"
-      "alltweets_#{@screen_name}#{ext}"
     end
   end
 end
