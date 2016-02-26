@@ -1,5 +1,5 @@
 require "colorize"
-require "oj"
+require "json"
 require "trollop"
 
 module AllTweets
@@ -23,7 +23,7 @@ module AllTweets
       if @opts[:yaml]
         dump_data = YAML.dump(result)
       else
-        dump_data = Oj.dump(result, mode: :compat)
+        dump_data = JSON.dump(result)
       end
 
       puts dump_data
