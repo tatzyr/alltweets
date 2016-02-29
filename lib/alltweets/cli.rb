@@ -37,6 +37,7 @@ module AllTweets
       opts = Trollop::options do
         opt :retweets, "Include retweets"
         opt :yaml, "Use YAML instead of JSON"
+        version "alltweets #{VERSION}"
       end
 
       unless ARGV.size == 1
