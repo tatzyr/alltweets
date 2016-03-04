@@ -41,7 +41,7 @@ module AllTweets
       end
 
       unless ARGV.size == 1
-        warn "usage: alltweets <screen name>"
+        warn "usage: alltweets [options] <screen name>"
         exit 1
       end
 
