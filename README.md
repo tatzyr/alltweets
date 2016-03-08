@@ -18,6 +18,7 @@ $ gem install alltweets
 
 * `-r`, `--retweets`: Include retweets
 * `-y`, `--yaml`: Use YAML instead of JSON
+* `-v`, `--version`: Print version and exit
 * `-h`, `--help`: Show help message
 
 ### Example
