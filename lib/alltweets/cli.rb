@@ -60,7 +60,11 @@ module AllTweets
         request_token = consumer.get_request_token
 
         warn "1) Open: #{request_token.authorize_url}".colorize(:cyan)
-        Launchy.open(request_token.authorize_url)
+        begin 
+          Launchy.open(request_token.authorize_url)
+        rescue Launchy::CommandNotFoundError
+          warn "Warning: Clouldn't open web browser".colorize(:yellow)
+        end
 
         $stderr.print "2) Enter the PIN: ".colorize(:cyan)
         pin = $stdin.gets.strip
