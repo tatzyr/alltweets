@@ -17,7 +17,7 @@ module AllTweets
     end
 
     def run
-      warn "Downloading #{@screen_name}'s all tweets"
+      warn "Downloading @#{@screen_name}'s all tweets"
       result = @collector.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
       if @opts[:yaml]
