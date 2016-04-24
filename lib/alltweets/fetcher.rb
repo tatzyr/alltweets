@@ -1,7 +1,7 @@
 require "twitter"
 
 module AllTweets
-  class Collector
+  class Fetcher
     def initialize(hash)
       @client = Twitter::REST::Client.new(hash)
     end

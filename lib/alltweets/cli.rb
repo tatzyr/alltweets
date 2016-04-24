@@ -8,7 +8,7 @@ module AllTweets
       @screen_name, @opts = parse_args
       @settings = Settings.new
       update_access_token
-      @collector = Collector.new(
+      @fetcher = Fetcher.new(
         consumer_key: @settings.consumer_key,
         consumer_secret: @settings.consumer_secret,
         access_token: @settings.access_token,
@@ -18,7 +18,7 @@ module AllTweets
 
     def run
       warn "Downloading @#{@screen_name}'s all tweets"
-      result = @collector.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
+      result = @fetcher.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
       if @opts[:yaml]
         dump_data = YAML.dump(result)
