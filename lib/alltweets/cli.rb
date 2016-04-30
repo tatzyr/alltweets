@@ -18,7 +18,7 @@ module AllTweets
 
     def run
       warn "Downloading @#{@screen_name}'s all tweets"
-      result = @fetcher.get_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
+      result = @fetcher.fetch_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
 
       if @opts[:yaml]
         dump_data = YAML.dump(result)
