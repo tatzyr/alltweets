@@ -6,7 +6,7 @@ module AllTweets
       @client = Twitter::REST::Client.new(hash)
     end
 
-    def fetch_all_tweets(user, include_retweets: false)
+    def fetch_all_tweets(user, include_retweets: true)
       collect_with_max_id do |max_id|
         options = { count: 200, include_rts: include_retweets }
         options[:max_id] = max_id unless max_id.nil?
