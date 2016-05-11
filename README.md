@@ -27,6 +27,30 @@ $ gem install alltweets
 * `alltweets -r tatzyr`: Download @tatzyr's all tweets including retweets.
 * `alltweets -y tatzyr`: Download @tatzyr's all tweets as YAML instead of JSON.
 
+### Using AllTweets from Ruby
+
+```ruby
+require "alltweets"
+
+fetcher = AllTweets::Fetcher.new(
+  consumer_key: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  consumer_secret: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  access_token: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  access_token_secret: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+)
+
+# # alternatively
+# require "twitter"
+# client = Twitter::REST::Client.new(...)
+# fetcher = AllTweets::Fetcher.new(client)
+
+fetcher.fetch_all_tweets("tatzyr")
+# => [#<Twitter::Tweet id=...>, #<Twitter::Tweet id=...>, ...]
+
+fetcher.fetch_all_tweets("tatzyr", include_retweets: false)
+# => [#<Twitter::Tweet id=...>, #<Twitter::Tweet id=...>, ...]
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. Run `bundle exec alltweets` to use the gem in this directory, ignoring other installed copies of this gem.
