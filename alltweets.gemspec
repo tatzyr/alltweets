@@ -18,7 +18,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "colorize", "~> 0.7.7"
-  spec.add_dependency "launchy", "~> 2.4.3"
   spec.add_dependency "oauth", "~> 0.4.7"
   spec.add_dependency "trollop", '~> 2.1.2'
   spec.add_dependency "twitter", "~> 5.15"

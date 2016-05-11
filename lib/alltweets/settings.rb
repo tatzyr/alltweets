@@ -1,4 +1,3 @@
-require "launchy"
 require "oauth"
 require "yaml"
 
