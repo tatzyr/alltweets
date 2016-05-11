@@ -2,8 +2,13 @@ require "twitter"
 
 module AllTweets
   class Fetcher
-    def initialize(hash)
-      @client = Twitter::REST::Client.new(hash)
+    def initialize(arg)
+      case arg
+      when Hash
+        @client = Twitter::REST::Client.new(arg)
+      else
+        @client = arg
+      end
     end
 
     def fetch_all_tweets(user, include_retweets: true)
