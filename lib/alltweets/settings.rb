@@ -39,7 +39,7 @@ module AllTweets
     end
 
     def dump_file
-      open(@filename, "w") do |f|
+      open(@filename, "w", 0600) do |f|
         YAML.dump(@settings, f)
       end
     end
