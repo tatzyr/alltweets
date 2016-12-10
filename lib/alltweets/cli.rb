@@ -1,6 +1,6 @@
 require "colorize"
 require "json"
-require "trollop"
+require "optparse"
 
 module AllTweets
   class CLI
@@ -18,9 +18,9 @@ module AllTweets
 
     def run
       warn "Downloading @#{@screen_name}'s all tweets"
-      result = @fetcher.fetch_all_tweets(@screen_name, include_retweets: @opts[:retweets]).map(&:to_h)
+      result = @fetcher.fetch_all_tweets(@screen_name, include_retweets: @opts["retweets"]).map(&:to_h)
 
-      if @opts[:yaml]
+      if @opts["yaml"]
         dump_data = YAML.dump(result)
       else
         dump_data = JSON.dump(result)
@@ -34,10 +34,23 @@ module AllTweets
 
     private
     def parse_args
-      opts = Trollop::options do
-        opt :retweets, "Include retweets"
-        opt :yaml, "Use YAML instead of JSON"
-        version "alltweets #{VERSION}"
+      opts = ARGV.getopts("", "retweets", "yaml", "help", "version")
+
+      if opts["help"]
+        puts <<EOS
+alltweets #{VERSION}
+Options:
+  -r, --retweets    Include retweets
+  -y, --yaml        Use YAML instead of JSON
+  -v, --version     Print version and exit
+  -h, --help        Show this message
+EOS
+        exit
+      end
+
+      if opts["version"]
+        puts "alltweets #{VERSION}"
+        exit
       end
 
       unless ARGV.size == 1
