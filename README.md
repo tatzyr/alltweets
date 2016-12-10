@@ -12,7 +12,7 @@ $ gem install alltweets
 
 ### Commands
 
-* `alltweets <screen name>`: Download &lt;screen name&gt;'s all tweets.
+* `alltweets [options] SCREEN_NAME`: Download SCREEN_NAME's all tweets.
 
 ### Options
 
