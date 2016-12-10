@@ -43,6 +43,10 @@ module AllTweets
       if opts["help"]
         puts <<EOS
 alltweets #{VERSION}
+
+Usage:
+  alltweets [options] SCREEN_NAME
+
 Options:
   -r, --retweets    Include retweets
   -y, --yaml        Use YAML instead of JSON
@@ -58,7 +62,7 @@ EOS
       end
 
       unless ARGV.size == 1
-        warn "usage: alltweets [options] <screen name>"
+        warn "usage: alltweets [options] SCREEN_NAME"
         exit 1
       end
 
