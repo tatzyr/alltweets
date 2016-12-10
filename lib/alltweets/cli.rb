@@ -1,6 +1,10 @@
 require "colorize"
 require "json"
 require "optparse"
+require "yaml"
+require "alltweets/fetcher"
+require "alltweets/settings"
+require "alltweets/version"
 
 module AllTweets
   class CLI
