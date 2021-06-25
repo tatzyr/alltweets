@@ -1,7 +1,6 @@
 require "colorize"
 require "json"
 require "optparse"
-require "yaml"
 require "alltweets/fetcher"
 require "alltweets/settings"
 require "alltweets/version"
@@ -22,15 +21,8 @@ module AllTweets
 
     def run
       warn "Downloading @#{@screen_name}'s all tweets"
-      result = @fetcher.fetch_all_tweets(@screen_name, include_retweets: @opts["retweets"]).map(&:to_h)
-
-      if @opts["yaml"]
-        dump_data = YAML.dump(result)
-      else
-        dump_data = JSON.dump(result)
-      end
-
-      puts dump_data
+      result = @fetcher.fetch_all_tweets(@screen_name).map(&:to_h)
+      puts JSON.dump(result)
     rescue
       warn "Error: #{$!}".colorize(:red)
       exit 1
@@ -38,7 +30,7 @@ module AllTweets
 
     private
     def parse_args
-      opts = ARGV.getopts("", "retweets", "yaml", "help", "version")
+      opts = ARGV.getopts("", "help", "version")
 
       if opts["help"]
         puts <<EOS
@@ -48,8 +40,6 @@ Usage:
   alltweets [options] SCREEN_NAME
 
 Options:
-  -r, --retweets    Include retweets
-  -y, --yaml        Use YAML instead of JSON
   -v, --version     Print version and exit
   -h, --help        Show this message
 EOS
