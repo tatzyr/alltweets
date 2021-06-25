@@ -1,6 +1,6 @@
-require "colorize"
 require "json"
 require "optparse"
+require "rainbow/ext/string"
 require "alltweets/fetcher"
 require "alltweets/settings"
 require "alltweets/version"
@@ -8,6 +8,7 @@ require "alltweets/version"
 module AllTweets
   class CLI
     def initialize
+      Rainbow.enabled = true # forcing coloring even when stdout/stderr is not a tty
       @screen_name, @opts = parse_args
       @settings = Settings.new
       update_access_token
@@ -24,7 +25,7 @@ module AllTweets
       result = @fetcher.fetch_all_tweets(@screen_name).map(&:to_h)
       puts JSON.dump(result)
     rescue
-      warn "Error: #{$!}".colorize(:red)
+      warn "Error: #{$!}".color(:red)
       exit 1
     end
 
@@ -70,17 +71,17 @@ EOS
         )
         request_token = consumer.get_request_token
 
-        warn "You need to get token/secret pair of Twitter OAuth.".colorize(:cyan)
-        warn "The token/secret pair will be saved to #{@settings.filename}".colorize(:cyan)
-        warn "".colorize(:cyan)
-        warn "1) Open: #{request_token.authorize_url}".colorize(:cyan)
-        $stderr.print "2) Enter the PIN: ".colorize(:cyan)
+        warn "You need to get token/secret pair of Twitter OAuth.".color(:cyan)
+        warn "The token/secret pair will be saved to #{@settings.filename}".color(:cyan)
+        warn "".color(:cyan)
+        warn "1) Open: #{request_token.authorize_url}".color(:cyan)
+        $stderr.print "2) Enter the PIN: ".color(:cyan)
         pin = $stdin.gets.strip
 
         access_token = request_token.get_access_token(oauth_verifier: pin)
 
         @settings.add_access_tokens(access_token.token, access_token.secret)
-        warn "Saved the token/secret pair to #{@settings.filename}".colorize(:cyan)
+        warn "Saved the token/secret pair to #{@settings.filename}".color(:cyan)
       end
     end
   end
