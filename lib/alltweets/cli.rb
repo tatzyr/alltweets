@@ -20,7 +20,7 @@ module AllTweets
     end
 
     def run
-      warn "Downloading @#{@screen_name}'s all tweets"
+      warn "Downloading @#{@screen_name}'s all tweets..."
       result = @fetcher.fetch_all_tweets(@screen_name).map(&:to_h)
       puts JSON.dump(result)
     rescue
@@ -70,14 +70,17 @@ EOS
         )
         request_token = consumer.get_request_token
 
+        warn "You need to get token/secret pair of Twitter OAuth.".colorize(:cyan)
+        warn "The token/secret pair will be saved to #{@settings.filename}".colorize(:cyan)
+        warn "".colorize(:cyan)
         warn "1) Open: #{request_token.authorize_url}".colorize(:cyan)
         $stderr.print "2) Enter the PIN: ".colorize(:cyan)
         pin = $stdin.gets.strip
 
         access_token = request_token.get_access_token(oauth_verifier: pin)
 
-        warn "Saving access token and access token secret to #{@settings.filename}"
         @settings.add_access_tokens(access_token.token, access_token.secret)
+        warn "Saved the token/secret pair to #{@settings.filename}".colorize(:cyan)
       end
     end
   end
