@@ -7,23 +7,12 @@ require "alltweets/version"
 
 module AllTweets
   class CLI
-    def initialize
+    def run
       Rainbow.enabled = true # forcing coloring even when stdout/stderr is not a tty
       @screen_name, @opts = parse_args
       @settings = Settings.new
       update_access_token
-      @fetcher = Fetcher.new(
-        consumer_key: @settings.consumer_key,
-        consumer_secret: @settings.consumer_secret,
-        access_token: @settings.access_token,
-        access_token_secret: @settings.access_token_secret
-      )
-    end
-
-    def run
-      warn "Downloading @#{@screen_name}'s all tweets..."
-      result = @fetcher.fetch_all_tweets(@screen_name).map(&:to_h)
-      puts JSON.dump(result)
+      fetch_and_print
     rescue
       warn "Error: #{$!}".color(:red)
       exit 1
@@ -83,6 +72,19 @@ EOS
         @settings.add_access_tokens(access_token.token, access_token.secret)
         warn "Saved the token/secret pair to #{@settings.filename}".color(:cyan)
       end
+    end
+
+    def fetch_and_print
+      fetcher = Fetcher.new(
+        consumer_key: @settings.consumer_key,
+        consumer_secret: @settings.consumer_secret,
+        access_token: @settings.access_token,
+        access_token_secret: @settings.access_token_secret
+      )
+
+      warn "Downloading @#{@screen_name}'s all tweets..."
+      result = fetcher.fetch_all_tweets(@screen_name).map(&:to_h)
+      puts JSON.dump(result)
     end
   end
 end
