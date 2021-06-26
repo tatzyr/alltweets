@@ -5,10 +5,10 @@ module AllTweets
   class Settings
     INITIAL_SETTINGS = {
       consumer_key: "GyRoi6Jx4T4olW1Rfwgfaa5kv",
-      consumer_secret: "OHx2XugBhtg7kuI4yaPANXh3rplREN0Si8CoLzVWYpkeDyH3NJ",
+      consumer_secret: "OHx2XugBhtg7kuI4yaPANXh3rplREN0Si8CoLzVWYpkeDyH3NJ"
     }
 
-    def initialize(filename = File.expand_path('~/.alltweets'))
+    def initialize(filename = File.expand_path("~/.alltweets"))
       @filename = filename
       @settings = load_file
     end
@@ -32,6 +32,7 @@ module AllTweets
     end
 
     private
+
     def load_file
       return INITIAL_SETTINGS unless exist?
 
@@ -39,7 +40,7 @@ module AllTweets
     end
 
     def dump_file
-      open(@filename, "w", 0600) do |f|
+      File.open(@filename, "w", 0o600) do |f|
         YAML.dump(@settings, f)
       end
     end

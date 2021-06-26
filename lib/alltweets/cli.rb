@@ -19,20 +19,21 @@ module AllTweets
     end
 
     private
+
     def parse_args
       opts = ARGV.getopts("", "help", "version")
 
       if opts["help"]
-        puts <<EOS
-alltweets #{VERSION}
-
-Usage:
-  alltweets [options] SCREEN_NAME
-
-Options:
-  -v, --version     Print version and exit
-  -h, --help        Show this message
-EOS
+        puts <<~EOS
+          alltweets #{VERSION}
+          
+          Usage:
+            alltweets [options] SCREEN_NAME
+          
+          Options:
+            -v, --version     Print version and exit
+            -h, --help        Show this message
+        EOS
         exit
       end
 
