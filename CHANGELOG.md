@@ -1,4 +1,6 @@
 ## [Unreleased]
+
+## [2.0.0] - 2021-06-27
 ### Added
 - Detail the token/secret pair message
 - Add error handling when invalid options are specified
